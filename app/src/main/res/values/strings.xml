@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Dylan计步</string>
+    <string name="app_name">炫彩计步</string>
+    <string name="decribe">让健康成为习惯。</string>
+    <string name="see_history_step">查看历史步数</string>
+    <string name="set_exercise_plan">设置锻炼计划</string>
+    <string name="device_enable">该设备支持计步</string>
 </resources>

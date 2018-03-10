@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.bluemobi.dylan.step">
+    package="king.m.color.stepcount">
 
     <!--计歩-->
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -19,13 +19,14 @@
         android:required="true" />
 
     <application
-        android:name=".app.MyApplication"
+        android:name="king.m.color.stepcount.app.MyApplication"
+        android:description="@string/decribe"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" android:launchMode="singleTask">
+        <activity android:name="king.m.color.stepcount.activity.MainActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SetPlanActivity"
+            android:name="king.m.color.stepcount.activity.SetPlanActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.HistoryActivity"
+            android:name="king.m.color.stepcount.activity.HistoryActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <service
-            android:name=".step.service.StepService"
+            android:name="king.m.color.stepcount.step.service.StepService"
             android:priority="1000">
             <intent-filter>
                 <!-- 系统启动完成后会调用-->
@@ -54,7 +55,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".pedometer.StepsDetectService"
+            android:name="king.m.color.stepcount.pedometer.StepsDetectService"
             android:priority="1000"
             android:process="cn.bluemobi.dylan.step..pedometer.StepsDetectService">
             <intent-filter>
