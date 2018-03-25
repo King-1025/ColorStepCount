@@ -22,17 +22,20 @@
         android:name="king.m.color.stepcount.app.MyApplication"
         android:description="@string/decribe"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="king.m.color.stepcount.activity.MainActivity" android:launchMode="singleTask">
+        <activity android:name="king.m.color.stepcount.activity.SplashActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="king.m.color.stepcount.activity.MainActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name="king.m.color.stepcount.activity.SetPlanActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

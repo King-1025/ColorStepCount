@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -101,7 +102,6 @@ public class SetPlanActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_save:
                 save();
                 break;
-
             case R.id.tv_remind_time:
                 showTimeDialog1();
                 break;
@@ -130,7 +130,8 @@ public class SetPlanActivity extends AppCompatActivity implements View.OnClickLi
         } else {
             sp.setParam("achieveTime", achieveTime);
         }
-                finish();
+        Toast.makeText(this,"保存成功！",Toast.LENGTH_LONG).show();
+        finish();
     }
 
     private void showTimeDialog1() {

@@ -3,12 +3,15 @@ package king.m.color.stepcount.view;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.logging.Handler;
 
 import king.m.color.stepcount.R;
 
@@ -61,7 +64,6 @@ public class StepArcView extends View {
         super(context, attrs, defStyleAttr);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -69,27 +71,20 @@ public class StepArcView extends View {
         float centerX = (getWidth()) / 2;
         /**指定圆弧的外轮廓矩形区域*/
         RectF rectF = new RectF(0 + borderWidth, borderWidth, 2 * centerX - borderWidth, 2 * centerX - borderWidth);
+        /**【第一步】绘制整体的静态圆弧*/
+        drawArcStatic(canvas, rectF,borderWidth,getResources().getColor(R.color.green),true,2.5f);
+        /**【第二步】绘制当前进度圆弧*/
+        drawArcActive(canvas, rectF,getResources().getColor(R.color.green));
+        /**【第三步】绘制当前进度数字*/
+        drawTextNumber(canvas, centerX, getResources().getColor(R.color.red));
+        /**【第四步】绘制"步数"数字*/
+        drawTextStepString(canvas, centerX, getResources().getColor(R.color.black));
 
-        /**【第一步】绘制整体的黄色圆弧*/
-        drawArcYellow(canvas, rectF);
-        /**【第二步】绘制当前进度的红色圆弧*/
-        drawArcRed(canvas, rectF);
-        /**【第三步】绘制当前进度的红色数字*/
-        drawTextNumber(canvas, centerX);
-        /**【第四步】绘制"步数"的红色数字*/
-        drawTextStepString(canvas, centerX);
     }
 
-    /**
-     * 1.绘制总步数的黄色圆弧
-     *
-     * @param canvas 画笔
-     * @param rectF  参考的矩形
-     */
-    private void drawArcYellow(Canvas canvas, RectF rectF) {
+    private void drawArcStatic(Canvas canvas, RectF rectF,float border,int color,boolean is,float offset) {
         Paint paint = new Paint();
-        /** 默认画笔颜色，黄色 */
-        paint.setColor(getResources().getColor(R.color.yellow));
+        paint.setColor(color);
         /** 结合处为圆弧*/
         paint.setStrokeJoin(Paint.Join.ROUND);
         /** 设置画笔的样式 Paint.Cap.Round ,Cap.SQUARE等分别为圆形、方形*/
@@ -99,7 +94,7 @@ public class StepArcView extends View {
         /**抗锯齿功能*/
         paint.setAntiAlias(true);
         /**设置画笔宽度*/
-        paint.setStrokeWidth(borderWidth);
+        paint.setStrokeWidth(border);
 
         /**
          * 绘制圆弧的方法
@@ -111,34 +106,39 @@ public class StepArcView extends View {
          参数五是Paint对象；
          */
         canvas.drawArc(rectF, startAngle, angleLength, false, paint);
-
+        if(is) {
+            paint.setStrokeWidth(borderWidth - dipToPx(offset));
+            paint.setColor(getResources().getColor(R.color.white));
+            canvas.drawArc(rectF, startAngle, angleLength, false, paint);
+        }
     }
 
     /**
      * 2.绘制当前步数的红色圆弧
      */
-    private void drawArcRed(Canvas canvas, RectF rectF) {
+    private void drawArcActive(Canvas canvas, RectF rectF,int color) {
         Paint paintCurrent = new Paint();
         paintCurrent.setStrokeJoin(Paint.Join.ROUND);
         paintCurrent.setStrokeCap(Paint.Cap.ROUND);//圆角弧度
         paintCurrent.setStyle(Paint.Style.STROKE);//设置填充样式
         paintCurrent.setAntiAlias(true);//抗锯齿功能
         paintCurrent.setStrokeWidth(borderWidth);//设置画笔宽度
-        paintCurrent.setColor(getResources().getColor(R.color.red));//设置画笔颜色
+        paintCurrent.setColor(color);//设置画笔颜色
+//        currentAngleLength=100;//test
         canvas.drawArc(rectF, startAngle, currentAngleLength, false, paintCurrent);
     }
 
     /**
      * 3.圆环中心的步数
      */
-    private void drawTextNumber(Canvas canvas, float centerX) {
+    private void drawTextNumber(Canvas canvas, float centerX,int color) {
         Paint vTextPaint = new Paint();
         vTextPaint.setTextAlign(Paint.Align.CENTER);
         vTextPaint.setAntiAlias(true);//抗锯齿功能
         vTextPaint.setTextSize(numberTextSize);
         Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL);
         vTextPaint.setTypeface(font);//字体风格
-        vTextPaint.setColor(getResources().getColor(R.color.red));
+        vTextPaint.setColor(color);
         Rect bounds_Number = new Rect();
         vTextPaint.getTextBounds(stepNumber, 0, stepNumber.length(), bounds_Number);
         canvas.drawText(stepNumber, centerX, getHeight() / 2 + bounds_Number.height() / 2, vTextPaint);
@@ -148,12 +148,12 @@ public class StepArcView extends View {
     /**
      * 4.圆环中心[步数]的文字
      */
-    private void drawTextStepString(Canvas canvas, float centerX) {
+    private void drawTextStepString(Canvas canvas, float centerX,int color) {
         Paint vTextPaint = new Paint();
         vTextPaint.setTextSize(dipToPx(16));
         vTextPaint.setTextAlign(Paint.Align.CENTER);
         vTextPaint.setAntiAlias(true);//抗锯齿功能
-        vTextPaint.setColor(getResources().getColor(R.color.grey));
+        vTextPaint.setColor(color);
         String stepString = "步数";
         Rect bounds = new Rect();
         vTextPaint.getTextBounds(stepString, 0, stepString.length(), bounds);

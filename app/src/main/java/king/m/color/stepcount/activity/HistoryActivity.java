@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
+//import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
             DbUtils.createDb(this, "jingzhi");
         }
         List<StepData> stepDatas =DbUtils.getQueryAll(StepData.class);
-        Logger.d("stepDatas="+stepDatas);
+        //Logger.d("stepDatas="+stepDatas);
         lv.setAdapter(new CommonAdapter<StepData>(this,stepDatas,R.layout.item) {
             @Override
             protected void convertView(View item, StepData stepData) {

@@ -53,8 +53,29 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cc"
             android:layout_marginTop="30dp"
+            android:textSize="12sp"
             android:layout_centerHorizontal="true"
-            android:text="@string/device_enable"
-            android:textColor="#333333" />
+            android:text="@string/start_count"
+            android:textColor="#333333"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_isSupport"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true">
+                <king.m.color.stepcount.view.FlashPoint
+                    android:id="@+id/flash_point_0"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+                <king.m.color.stepcount.view.FlashPoint
+                    android:id="@+id/flash_point_1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+                <king.m.color.stepcount.view.FlashPoint
+                    android:id="@+id/flash_point_2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+        </LinearLayout>
 
 </RelativeLayout>

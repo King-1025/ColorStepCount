@@ -19,7 +19,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.orhanobut.logger.Logger;
+//import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -106,8 +106,8 @@ public class StepService extends Service implements SensorEventListener {
             }
         }).start();
         startTimeCount();
-
     }
+
 
     /**
      * 获取当天日期
@@ -132,7 +132,7 @@ public class StepService extends Service implements SensorEventListener {
                 .setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
                 .setAutoCancel(false)//设置这个标志当用户单击面板就可以让通知将自动取消
                 .setOngoing(true)//ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
-                .setSmallIcon(R.mipmap.logo);
+                .setSmallIcon(R.mipmap.ic_launcher);
         Notification notification = mBuilder.build();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         startForeground(notifyId_Step, notification);
@@ -245,8 +245,8 @@ public class StepService extends Service implements SensorEventListener {
         String time = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("achieveTime", "21:00");
         String plan = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("planWalk_QTY", "7000");
         String remind = this.getSharedPreferences("share_date", Context.MODE_MULTI_PROCESS).getString("remind", "1");
-        Logger.d("time=" + time + "\n" +
-                "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
+        //Log.d("time=" + time + "\n" +
+        //       "new SimpleDateFormat(\"HH: mm\").format(new Date()))=" + new SimpleDateFormat("HH:mm").format(new Date()));
         if (("1".equals(remind)) &&
                 (CURRENT_STEP < Integer.parseInt(plan)) &&
                 (time.equals(new SimpleDateFormat("HH:mm").format(new Date())))
@@ -330,7 +330,7 @@ public class StepService extends Service implements SensorEventListener {
                 .setOngoing(false)//ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
                 .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
                 //Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
-                .setSmallIcon(R.mipmap.logo);
+                .setSmallIcon(R.mipmap.ic_launcher);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mNotificationManager.notify(notify_remind_id, mBuilder.build());
     }
@@ -464,7 +464,7 @@ public class StepService extends Service implements SensorEventListener {
                 //记录最后一次APP打开到现在的总步数
                 previousStepCount = thisStepCount;
             }
-            Logger.d("tempStep" + tempStep);
+            //Logger.d("tempStep" + tempStep);
         } else if (stepSensorType == Sensor.TYPE_STEP_DETECTOR) {
             if (event.values[0] == 1.0) {
                 CURRENT_STEP++;
@@ -556,7 +556,7 @@ public class StepService extends Service implements SensorEventListener {
         stopForeground(true);
         DbUtils.closeDb();
         unregisterReceiver(mBatInfoReceiver);
-        Logger.d("stepService关闭");
+        //Logger.d("stepService关闭");
     }
 
     @Override

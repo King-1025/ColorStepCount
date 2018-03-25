@@ -4,4 +4,7 @@
     <string name="see_history_step">查看历史步数</string>
     <string name="set_exercise_plan">设置锻炼计划</string>
     <string name="device_enable">该设备支持计步</string>
+    <string name="counting">正在计步中...</string>
+    <string name="start_count">开始计步</string>
+    <string name="banner">与你一起，绽放运动之美</string>
 </resources>
